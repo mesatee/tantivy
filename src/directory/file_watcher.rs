@@ -3,7 +3,11 @@ use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
-use std::{fs, io, thread};
+#[cfg(not(target_vendor = "teaclave"))]
+use std::fs;
+#[cfg(target_vendor = "teaclave")]
+use std::untrusted::fs;
+use std::{io, thread};
 
 use crc32fast::Hasher;
 
